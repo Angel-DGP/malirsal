@@ -10,11 +10,17 @@ import {
   CRow,
 } from "@coreui/react";
 import FormLogins from "./FormLogins";
-import Mydocument from "./MyDocument";
+import MyDocument from "./MyDocument";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export default function Pa() {
   const [visible, setVisible] = useState(false);
+  const [dataList, setDataList] = useState([]); // Estado para almacenar los datos del formulario
+
+  // Función para actualizar los datos
+  const handleDataSubmit = (data) => {
+    setDataList([...dataList, data]);
+  };
 
   return (
     <>
@@ -33,15 +39,6 @@ export default function Pa() {
             <CButton color="primary" onClick={() => setVisible(!visible)}>
               +
             </CButton>
-            <PDFDownloadLink document={<Mydocument />} fileName="Mi-pdf.pdf">
-              {({ Loading }) =>
-                Loading ? (
-                  <button>Cargando...</button>
-                ) : (
-                  <button>Descargar</button>
-                )
-              }
-            </PDFDownloadLink>
           </CCol>
         </CRow>
       </CContainer>
@@ -58,7 +55,19 @@ export default function Pa() {
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <FormLogins />
+          <FormLogins onDataSubmit={handleDataSubmit} />
+          <PDFDownloadLink
+            document={<MyDocument dataList={dataList} />}
+            fileName="Mi_pdf.pdf"
+          >
+            {({ loading }) =>
+              loading ? (
+                <button>Cargando...</button>
+              ) : (
+                <button>Descargar</button>
+              )
+            }
+          </PDFDownloadLink>
         </CModalBody>
       </CModal>
     </>
