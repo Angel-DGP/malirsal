@@ -3,115 +3,6 @@ import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BotonExcel from "./BotonExcel";
 
-<<<<<<< HEAD
-export default function FormLogins() {
-  const [formData, setFormData] = useState([]);
-
-  return (
-    <>
-      <Formik
-        validate={(valores) => {
-          let errores = {};
-          if (!valores.sede) {
-            errores.sede = "Escriba el nombre de la SEDE";
-          }
-          if (!valores.c_carrera) {
-            errores.c_carrera = "Escriba el Codigo de la Carrera";
-          }
-          if (!valores.c_convenio) {
-            errores.c_convenio = "Escriba el Codigo del Convenio";
-          }
-          if (!valores.n_convenio) {
-            errores.n_convenio = "Escriba el Nombre del Convenio";
-          }
-          if (!valores.c_internacional) {
-            errores.c_internacional = "Escriba la Contraparte Internacional";
-          }
-          if (!valores.pais) {
-            errores.pais = "Escriba el País";
-          }
-          if (!valores.actividades) {
-            errores.actividades = "Escriba las actividades";
-          }
-          if (!valores.f_inicio) {
-            errores.f_inicio = "Escriba la Fecha de Inicio";
-          }
-          if (!valores.f_fin) {
-            errores.f_fin = "Escriba la Fecha de Fin";
-          }
-          if (!valores.a_conocimiento) {
-            errores.a_conocimiento = "Escriba el Área de Conocimiento";
-          }
-          if (!valores.financiamiento) {
-            errores.financiamiento = "Escriba el nombre del Financiamiento";
-          }
-          return errores;
-        }}
-        initialValues={{
-          sede: "",
-          c_carrera: "",
-          c_convenio: "",
-          n_convenio: "",
-          c_internacional: "",
-          pais: "",
-          actividades: "",
-          f_inicio: "",
-          f_fin: "",
-          a_conocimiento: "",
-          financiamiento: "",
-        }}
-        onSubmit={(values) => {
-          setFormData((prevData) => [...prevData, values]);
-          console.log("Formulario enviado", values);
-        }}
-      >
-        {({ values, errors, handleSubmit, handleChange, handleBlur }) => (
-          <form className="formulario" onSubmit={handleSubmit}>
-            <div className="container text-center">
-              <div className="row">
-                <div className="col-4">
-                  <label htmlFor="sede">Sede</label>
-                  <input
-                    type="text"
-                    id="sede"
-                    name="sede"
-                    placeholder="Escriba la Sede"
-                    value={values.sede}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.sede && <div className="error">{errors.sede}</div>}
-                </div>
-                <div className="col-4">
-                  <label htmlFor="c_carrera">Codigo de Carrera</label>
-                  <input
-                    type="text"
-                    id="c_carrera"
-                    name="c_carrera"
-                    placeholder="Escriba el Codigo de Carrera"
-                    value={values.c_carrera}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.c_carrera && (
-                    <div className="error">{errors.c_carrera}</div>
-                  )}
-                </div>
-                <div className="col-4">
-                  <label htmlFor="c_convenio">Codigo de Convenio</label>
-                  <input
-                    type="text"
-                    id="c_convenio"
-                    name="c_convenio"
-                    placeholder="Escriba el Codigo de Convenio"
-                    value={values.c_convenio}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.c_convenio && (
-                    <div className="error">{errors.c_convenio}</div>
-                  )}
-=======
 export default function FormLogins({ onDataSubmit }) {
   return (
     <div className="row justify-content-center">
@@ -170,7 +61,7 @@ export default function FormLogins({ onDataSubmit }) {
           }}
           onSubmit={(values, { resetForm }) => {
             onDataSubmit(values);
-            resetForm(); // Resetea el formulario después de enviar
+            resetForm();
           }}
         >
           {({ values, errors, handleSubmit, handleChange, handleBlur }) => (
@@ -231,7 +122,6 @@ export default function FormLogins({ onDataSubmit }) {
                       <div className="text-warning">{errors.c_convenio}</div>
                     )}
                   </div>
->>>>>>> 0d599aa341ac8fa643f50fb29ffe74b65f346670
                 </div>
                 <div className="row mb-3">
                   <div className="col-4">
@@ -377,8 +267,6 @@ export default function FormLogins({ onDataSubmit }) {
                   Guardar
                 </button>
               </div>
-<<<<<<< HEAD
-
               <br />
               <div className="row">
                 <div className="col">
@@ -511,21 +399,10 @@ export default function FormLogins({ onDataSubmit }) {
 
               <br />
               <button type="submit">Guardar</button>
-            </div>
-          </form>
-        )}
-      </Formik>
-
-      {}
-      <BotonExcel dataCSV={formData} />
-    </>
-=======
             </form>
           )}
         </Formik>
       </div>
     </div>
->>>>>>> 0d599aa341ac8fa643f50fb29ffe74b65f346670
   );
 }
-
