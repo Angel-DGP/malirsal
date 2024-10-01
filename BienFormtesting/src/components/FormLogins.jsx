@@ -1,53 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
+import "bootstrap/dist/css/bootstrap.min.css";
+import BotonExcel from "./BotonExcel";
 
 export default function FormLogins() {
+  const [formData, setFormData] = useState([]);
+
   return (
     <>
       <Formik
         validate={(valores) => {
           let errores = {};
-          //Error Sede
           if (!valores.sede) {
             errores.sede = "Escriba el nombre de la SEDE";
           }
-          //Error Codigo Carrera
           if (!valores.c_carrera) {
             errores.c_carrera = "Escriba el Codigo de la Carrera";
           }
-          //Error Codigo Convenio
           if (!valores.c_convenio) {
             errores.c_convenio = "Escriba el Codigo del Convenio";
           }
-          //Error Nombre Convenio
           if (!valores.n_convenio) {
             errores.n_convenio = "Escriba el Nombre del Convenio";
           }
-          //Error Contraparte Interacional
           if (!valores.c_internacional) {
             errores.c_internacional = "Escriba la Contraparte Internacional";
           }
-          //Error Pais
           if (!valores.pais) {
-            errores.pais = "Escriba el Pais";
+            errores.pais = "Escriba el País";
           }
-          //Error Actividades
           if (!valores.actividades) {
             errores.actividades = "Escriba las actividades";
           }
-          //Error Fecha Inicio
           if (!valores.f_inicio) {
-            errores.f_inicio = "Escriba la Fecha de Incio";
+            errores.f_inicio = "Escriba la Fecha de Inicio";
           }
-          //Error Fecha Fin
           if (!valores.f_fin) {
             errores.f_fin = "Escriba la Fecha de Fin";
           }
-          //Error Area Conocimiento
           if (!valores.a_conocimiento) {
-            errores.a_conocimiento = "Escriba el Area de Conocimiento";
+            errores.a_conocimiento = "Escriba el Área de Conocimiento";
           }
-          //Error Financiamiento
           if (!valores.financiamiento) {
             errores.financiamiento = "Escriba el nombre del Financiamiento";
           }
@@ -56,65 +49,67 @@ export default function FormLogins() {
         initialValues={{
           sede: "",
           c_carrera: "",
+          c_convenio: "",
+          n_convenio: "",
+          c_internacional: "",
+          pais: "",
+          actividades: "",
+          f_inicio: "",
+          f_fin: "",
+          a_conocimiento: "",
+          financiamiento: "",
         }}
-        onSubmit={() => {
-          console.log("Formulario enviado");
+        onSubmit={(values) => {
+          setFormData((prevData) => [...prevData, values]);
+          console.log("Formulario enviado", values);
         }}
       >
         {({ values, errors, handleSubmit, handleChange, handleBlur }) => (
           <form className="formulario" onSubmit={handleSubmit}>
-            {console.log(errors)}
             <div className="container text-center">
               <div className="row">
                 <div className="col-4">
-                  <div className="">
-                    <label htmlFor="sede">Sede</label>
-                    <br />
-                    <input
-                      type="text"
-                      id="sede"
-                      name="sede"
-                      placeholder="Escriba la Sede"
-                      value={values.sede}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    ></input>
-                    {errors.sede && <div className="error">{errors.sede}</div>}
-                  </div>
+                  <label htmlFor="sede">Sede</label>
+                  <input
+                    type="text"
+                    id="sede"
+                    name="sede"
+                    placeholder="Escriba la Sede"
+                    value={values.sede}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.sede && <div className="error">{errors.sede}</div>}
                 </div>
                 <div className="col-4">
-                  <div className="p-3 border bg-light">
-                    <label htmlFor="c_carrera">Codigo de Carrera</label>
-                    <input
-                      type="text"
-                      id="c_carrera"
-                      name="c_carrera"
-                      placeholder="Escriba el Codigo de Carrera"
-                      value={values.c_carrera}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    ></input>
-                    {errors.sede && (
-                      <div className="error">{errors.c_carrera}</div>
-                    )}
-                  </div>
+                  <label htmlFor="c_carrera">Codigo de Carrera</label>
+                  <input
+                    type="text"
+                    id="c_carrera"
+                    name="c_carrera"
+                    placeholder="Escriba el Codigo de Carrera"
+                    value={values.c_carrera}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.c_carrera && (
+                    <div className="error">{errors.c_carrera}</div>
+                  )}
                 </div>
                 <div className="col-4">
-                  <div className="p-3 border bg-light">
-                    <label htmlFor="c_convenio">Codigo de Convenio</label>
-                    <input
-                      type="text"
-                      id="c_convenio"
-                      name="c_convenio"
-                      placeholder="Escriba el Codigo de Convenio"
-                      value={values.c_convenio}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    ></input>
-                    {errors.sede && (
-                      <div className="error">{errors.c_convenio}</div>
-                    )}
-                  </div>
+                  <label htmlFor="c_convenio">Codigo de Convenio</label>
+                  <input
+                    type="text"
+                    id="c_convenio"
+                    name="c_convenio"
+                    placeholder="Escriba el Codigo de Convenio"
+                    value={values.c_convenio}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.c_convenio && (
+                    <div className="error">{errors.c_convenio}</div>
+                  )}
                 </div>
               </div>
 
@@ -130,8 +125,8 @@ export default function FormLogins() {
                     value={values.n_convenio}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && (
+                  />
+                  {errors.n_convenio && (
                     <div className="error">{errors.n_convenio}</div>
                   )}
                 </div>
@@ -147,8 +142,8 @@ export default function FormLogins() {
                     value={values.c_internacional}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && (
+                  />
+                  {errors.c_internacional && (
                     <div className="error">{errors.c_internacional}</div>
                   )}
                 </div>
@@ -158,17 +153,18 @@ export default function FormLogins() {
                     type="text"
                     id="pais"
                     name="pais"
-                    placeholder="Escriba el Pais"
+                    placeholder="Escriba el País"
                     value={values.pais}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && <div className="error">{errors.pais}</div>}
+                  />
+                  {errors.pais && <div className="error">{errors.pais}</div>}
                 </div>
               </div>
+
               <br />
               <div className="row">
-                <div>
+                <div className="col">
                   <label htmlFor="actividades">Actividades</label>
                   <input
                     type="text"
@@ -178,12 +174,12 @@ export default function FormLogins() {
                     value={values.actividades}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && (
+                  />
+                  {errors.actividades && (
                     <div className="error">{errors.actividades}</div>
                   )}
                 </div>
-                <div>
+                <div className="col">
                   <label htmlFor="f_inicio">Fecha de Inicio</label>
                   <input
                     type="date"
@@ -193,12 +189,12 @@ export default function FormLogins() {
                     value={values.f_inicio}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && (
+                  />
+                  {errors.f_inicio && (
                     <div className="error">{errors.f_inicio}</div>
                   )}
                 </div>
-                <div>
+                <div className="col">
                   <label htmlFor="f_fin">Fecha Fin</label>
                   <input
                     type="date"
@@ -208,28 +204,29 @@ export default function FormLogins() {
                     value={values.f_fin}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && <div className="error">{errors.f_fin}</div>}
+                  />
+                  {errors.f_fin && <div className="error">{errors.f_fin}</div>}
                 </div>
               </div>
-              <br></br>
+
+              <br />
               <div className="row">
-                <div>
-                  <label htmlFor="a_conocimiento">Area de Conocimiento</label>
+                <div className="col">
+                  <label htmlFor="a_conocimiento">Área de Conocimiento</label>
                   <input
                     type="text"
                     id="a_conocimiento"
                     name="a_conocimiento"
-                    placeholder="Escriba el Area de Conocimiento"
+                    placeholder="Escriba el Área de Conocimiento"
                     value={values.a_conocimiento}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && (
+                  />
+                  {errors.a_conocimiento && (
                     <div className="error">{errors.a_conocimiento}</div>
                   )}
                 </div>
-                <div>
+                <div className="col">
                   <label htmlFor="financiamiento">Financiamiento</label>
                   <input
                     type="text"
@@ -239,18 +236,23 @@ export default function FormLogins() {
                     value={values.financiamiento}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                  ></input>
-                  {errors.sede && (
+                  />
+                  {errors.financiamiento && (
                     <div className="error">{errors.financiamiento}</div>
                   )}
                 </div>
               </div>
-              <br></br>
+
+              <br />
               <button type="submit">Guardar</button>
             </div>
           </form>
         )}
       </Formik>
+
+      {}
+      <BotonExcel dataCSV={formData} />
     </>
   );
 }
+
