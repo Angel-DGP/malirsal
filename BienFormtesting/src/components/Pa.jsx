@@ -15,9 +15,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export default function Pa() {
   const [visible, setVisible] = useState(false);
-  const [dataList, setDataList] = useState([]); // Estado para almacenar los datos del formulario
+  const [dataList, setDataList] = useState([]);
 
-  // Función para actualizar los datos
   const handleDataSubmit = (data) => {
     setDataList([...dataList, data]);
   };
@@ -55,7 +54,7 @@ export default function Pa() {
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <FormLogins onDataSubmit={handleDataSubmit} />
+          <FormLogins onDataSubmit={handleDataSubmit} dataList={dataList} />
           <PDFDownloadLink
             document={<MyDocument dataList={dataList} />}
             fileName="Mi_pdf.pdf"

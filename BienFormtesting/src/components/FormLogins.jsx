@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BotonExcel from "./BotonExcel";
 
-export default function FormLogins({ onDataSubmit }) {
+export default function FormLogins({ onDataSubmit, dataList }) {
   return (
     <div className="row justify-content-center">
       <div className="col-lg-10">
@@ -267,141 +267,10 @@ export default function FormLogins({ onDataSubmit }) {
                   Guardar
                 </button>
               </div>
-              <br />
-              <div className="row">
-                <div className="col">
-                  <label htmlFor="n_convenio">Nombre del Convenio</label>
-                  <input
-                    type="text"
-                    id="n_convenio"
-                    name="n_convenio"
-                    placeholder="Escriba el Nombre del Convenio"
-                    value={values.n_convenio}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.n_convenio && (
-                    <div className="error">{errors.n_convenio}</div>
-                  )}
-                </div>
-                <div className="col">
-                  <label htmlFor="c_internacional">
-                    Contraparte Internacional
-                  </label>
-                  <input
-                    type="text"
-                    id="c_internacional"
-                    name="c_internacional"
-                    placeholder="Escriba la Contraparte Internacional"
-                    value={values.c_internacional}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.c_internacional && (
-                    <div className="error">{errors.c_internacional}</div>
-                  )}
-                </div>
-                <div className="col">
-                  <label htmlFor="pais">País</label>
-                  <input
-                    type="text"
-                    id="pais"
-                    name="pais"
-                    placeholder="Escriba el País"
-                    value={values.pais}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.pais && <div className="error">{errors.pais}</div>}
-                </div>
-              </div>
-
-              <br />
-              <div className="row">
-                <div className="col">
-                  <label htmlFor="actividades">Actividades</label>
-                  <input
-                    type="text"
-                    id="actividades"
-                    name="actividades"
-                    placeholder="Actividades"
-                    value={values.actividades}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.actividades && (
-                    <div className="error">{errors.actividades}</div>
-                  )}
-                </div>
-                <div className="col">
-                  <label htmlFor="f_inicio">Fecha de Inicio</label>
-                  <input
-                    type="date"
-                    id="f_inicio"
-                    name="f_inicio"
-                    placeholder="dd/mm/aaaa"
-                    value={values.f_inicio}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.f_inicio && (
-                    <div className="error">{errors.f_inicio}</div>
-                  )}
-                </div>
-                <div className="col">
-                  <label htmlFor="f_fin">Fecha Fin</label>
-                  <input
-                    type="date"
-                    id="f_fin"
-                    name="f_fin"
-                    placeholder="dd/mm/aaaa"
-                    value={values.f_fin}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.f_fin && <div className="error">{errors.f_fin}</div>}
-                </div>
-              </div>
-
-              <br />
-              <div className="row">
-                <div className="col">
-                  <label htmlFor="a_conocimiento">Área de Conocimiento</label>
-                  <input
-                    type="text"
-                    id="a_conocimiento"
-                    name="a_conocimiento"
-                    placeholder="Escriba el Área de Conocimiento"
-                    value={values.a_conocimiento}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.a_conocimiento && (
-                    <div className="error">{errors.a_conocimiento}</div>
-                  )}
-                </div>
-                <div className="col">
-                  <label htmlFor="financiamiento">Financiamiento</label>
-                  <input
-                    type="text"
-                    id="financiamiento"
-                    name="financiamiento"
-                    placeholder="Escriba el Financiamiento"
-                    value={values.financiamiento}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.financiamiento && (
-                    <div className="error">{errors.financiamiento}</div>
-                  )}
-                </div>
-              </div>
-
-              <br />
-              <button type="submit">Guardar</button>
             </form>
           )}
         </Formik>
+        <BotonExcel dataCSV={dataList} />
       </div>
     </div>
   );
