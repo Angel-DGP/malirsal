@@ -15,11 +15,16 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     border: "1pt solid black",
-    padding: 5,
+    padding: "5",
     width: "50%",
   },
   subtitle: {
     fontWeight: "bold",
+  },
+  header: {
+    fontSize: "19px",
+    backgroundColor: "#D9D9D9",
+    textAlign: "center",
   },
 });
 
@@ -27,7 +32,7 @@ const MyDocument = ({ dataList }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View>
-        <Text>Datos del formulario:</Text>
+        <Text style={styles.header}>Datos del formulario:</Text>
         <View style={styles.table}>
           {dataList.map((data, index) => (
             <React.Fragment key={index}>
