@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BotonExcel from "./BotonExcel";
+import { CCard, CCardBody, CCardHeader } from "@coreui/react";
 
 export default function FormLogins({ onDataSubmit, dataList }) {
   return (
@@ -177,9 +178,36 @@ export default function FormLogins({ onDataSubmit, dataList }) {
                     )}
                   </div>
                 </div>
+                <CCard>
+                  <CCardHeader>Participantes</CCardHeader>
+                  <CCardBody>
+                    <div className="row mb-3">
+                      <div className="col">
+                        <label htmlFor="tipodParticipante">
+                          Tipo de Participante
+                        </label>
+                        <select
+                          name="participantes[0].tipo_movilizado"
+                          id="participantes[0].tipo_movilizado"
+                          class="form-select form-select-sm"
+                        >
+                          <option value="">
+                            Seleccione el tipo movilizado
+                          </option>
+                          <option value="ESTUDIANTE">ESTUDIANTE</option>
+                          <option value="DOCENTE">DOCENTE</option>
+                          <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                          <option value="INVESTIGADOR">INVESTIGADOR</option>
+                          <option value="VOLUNTARIO">VOLUNTARIO</option>
+                          <option value="INDEPENDIENTE">INDEPENDIENTE</option>
+                        </select>
+                      </div>
+                    </div>
+                  </CCardBody>
+                </CCard>
+
                 <div className="row mb-3">
                   <div className="col">
-                    <label htmlFor="actividades">Actividades</label>
                     <input
                       type="text"
                       id="actividades"
@@ -225,6 +253,7 @@ export default function FormLogins({ onDataSubmit, dataList }) {
                     )}
                   </div>
                 </div>
+
                 <div className="row mb-3">
                   <div className="col">
                     <label htmlFor="a_conocimiento">Área de Conocimiento</label>
