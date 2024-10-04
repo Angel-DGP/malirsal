@@ -1,12 +1,12 @@
 import React from "react";
-import * as XLSX from "xlsx";
+import * as XLSX from "xlsx-js-style";
 
 const BotonExcel = ({ dataCSV }) => {
   const generateHeaders = () => [
     { label: "SEDE", key: "sede" },
     { label: "CÓDIGO CARRERA", key: "c_carrera" },
-    { label: "CÓDIGO CONVENIO INTERNACIONAL", key: "c_internacional" },
-    { label: "NOMBRE DEL CONVENIO / CONVOCATORIA / EVENTO INTERNACIONAL", key: "n_convenio" },
+    { label: "CÓDIGO CONVENIO", key: "c_convenio" },
+    { label: "NOMBRE DEL CONVENIO", key: "n_convenio" },
     { label: "CONTRAPARTE INTERNACIONAL", key: "c_internacional" },
     { label: "PAÍS", key: "pais" },
     { label: "ACTIVIDADES", key: "actividades" },
@@ -14,89 +14,108 @@ const BotonExcel = ({ dataCSV }) => {
     { label: "FECHA FIN", key: "f_fin" },
     { label: "ÁREA DE CONOCIMIENTO", key: "a_conocimiento" },
     { label: "FINANCIAMIENTO", key: "financiamiento" },
-    { label: "EVIDENCIA", key: "evidencia" },
   ];
 
-  const transformDataForParticipants = (data) => {
-    return data;
-  };
+  const transformDataForParticipants = (data) => data;
 
   const exportToExcel = () => {
     const headers = generateHeaders();
     const transformedData = transformDataForParticipants(dataCSV);
 
-    // Crear una hoja de trabajo vacía
     const ws = XLSX.utils.aoa_to_sheet([[]]);
 
-    // Configurar las filas para el título, subtítulo y encabezados
     ws["!rows"] = [
-      { hpt: 30 }, // Altura de la fila 1
-      { hpt: 20 }, // Altura de la fila 2 para el subtítulo
-      { hpt: 20 }, // Altura de la fila 3 para el subtítulo
-      { hpt: 20 }, // Altura de la fila 4 para los encabezados vacíos
-      { hpt: 20 }, // Altura de la fila 5 para los encabezados vacíos
-      { hpt: 72 }, // Altura de la fila 6 para los encabezados de columna
+      { hpt: 30 },
+      { hpt: 20 },
+      { hpt: 20 },
+      { hpt: 20 },
+      { hpt: 20 },
+      { hpt: 72 },
     ];
 
-    ws["!cols"] = headers.map(() => ({ wch: 20 })); // Ajustar ancho de columnas
+    // Ajustar el ancho de columnas
+    ws["!cols"] = [
+      { wch: 20 },  // Columna A
+      { wch: 20 },  // Columna B
+      { wch: 20 },  // Columna C
+      { wch: 27.86 }, // Columna D
+      { wch: 34.86 }, // Columna E
+      { wch: 20 },  // Columna F
+      { wch: 20 },  // Columna G
+      { wch: 20 },  // Columna H
+      { wch: 20 },  // Columna I
+      { wch: 27.86 },  // Columna J
+      { wch: 20 },  // Columna K
+      { wch: 20 },  // Columna L
+    ];
 
     const titleStyle = {
-      font: { bold: true, sz: 14 },
-      alignment: { horizontal: "center", vertical: "center" },
+      font: { name: "Arial Rounded MT Bold", bold: true, sz: 14 },
+      alignment: { horizontal: "left", vertical: "center" },
     };
-    
+
     const subtitleStyle = {
-      font: { bold: true, sz: 12, color: { rgb: "000000" } },
+      font: { name: "Arial Rounded MT Bold", bold: true, sz: 12, color: { rgb: "000000" } },
       alignment: { horizontal: "center", vertical: "center" },
-      fill: { fgColor: { rgb: "FFFFE0" } }, // Color de fondo
+      // Sin color de fondo
     };
-    
-    const headerStyle = {
+
+    const headerStyleLeftAligned = {
       font: { bold: true, color: { rgb: "000000" } },
-      fill: { fgColor: { rgb: "FFFF00" } }, // Color de fondo
-      alignment: { horizontal: "center" },
+      fill: { fgColor: { rgb: "D9E1F2" } },
+      alignment: { horizontal: "center", vertical: "center" },
+      border: {
+        top: { style: "thin", color: { rgb: "000000" } },
+        bottom: { style: "thin", color: { rgb: "000000" } },
+        left: { style: "thin", color: { rgb: "000000" } },
+        right: { style: "thin", color: { rgb: "000000" } },
+      },
     };
 
-    // Agregar título y subtítulo
-    ws["A1"] = { v: "PONTIFICIA UNIVERSIDAD CATÓLICA DEL ECUADOR", s: titleStyle };
-    ws["A2"] = { v: "COORDINACIÓN DE INFORMACIÓN Y ESTADÍSTICAS", s: subtitleStyle };
-    ws["A3"] = { v: "INTERNACIONALIZACIÓN", s: subtitleStyle };
+    // Estilo para celdas A2 y A3 sin fondo
+    const noFillStyle = {
+      font: { name: "Arial Rounded MT Bold", bold: true, sz: 12, color: { rgb: "000000" } },
+      alignment: { horizontal: "left", vertical: "center" },
+    };
 
-    // Agregar encabezados en la fila 6
+    ws["A1"] = { v: "PONTIFICIA UNIVERSIDAD CATÓLICA DEL ECUADOR", s: titleStyle };
+    ws["A2"] = { v: "COORDINACIÓN DE INFORMACIÓN Y ESTADÍSTICAS", s: noFillStyle };
+    ws["A3"] = { v: "INTERNACIONALIZACIÓN", s: noFillStyle };
+
     headers.forEach((header, index) => {
-      const cellAddress = { c: index, r: 5 }; // Encabezados empiezan en la fila 6 (índice 5)
+      const cellAddress = { c: index, r: 5 };
       const cellRef = XLSX.utils.encode_cell(cellAddress);
-      ws[cellRef] = { v: header.label, s: headerStyle };
+
+      ws[cellRef] = { 
+        v: header.label,
+        s: {
+          ...headerStyleLeftAligned,
+          fill: { fgColor: { rgb: index < 6 ? "D9E1F2" : "C6E0B4" } },
+        },
+      };
     });
 
-    const dataStartRow = 6 + 1; // La fila siguiente a los encabezados
+    // Aplicar bordes a las celdas de A6 a L6
+    for (let colIndex = 0; colIndex < 12; colIndex++) { // De A (0) a L (11)
+      const cellAddress = { c: colIndex, r: 5 }; // Fila 6 (índice 5)
+      const cellRef = XLSX.utils.encode_cell(cellAddress);
+      if (ws[cellRef]) {
+        ws[cellRef].s.border = {
+          top: { style: "thin", color: { rgb: "000000" } },
+          bottom: { style: "thin", color: { rgb: "000000" } },
+          left: { style: "thin", color: { rgb: "000000" } },
+          right: { style: "thin", color: { rgb: "000000" } },
+        };
+      }
+    }
 
-    // Agregar datos
+    const dataStartRow = 6 + 1;
+
     XLSX.utils.sheet_add_json(ws, transformedData, {
       header: headers.map((header) => header.key),
       skipHeader: true,
       origin: { r: dataStartRow, c: 0 },
     });
-
-    // Aplicar un formato básico a todas las celdas de datos
-    const dataEndRow = dataStartRow + transformedData.length - 1;
-for (let row = dataStartRow; row <= dataEndRow; row++) {
-  headers.forEach((_, colIndex) => {
-    const cellAddress = XLSX.utils.encode_cell({ c: colIndex, r: row });
-    if (ws[cellAddress]) {
-      ws[cellAddress].s = {
-        font: { sz: 11, color: { rgb: "000000" } },
-        alignment: { horizontal: "center", vertical: "center" },
-        border: {
-          top: { style: "thin", color: { rgb: "000000" } },
-          bottom: { style: "thin", color: { rgb: "000000" } },
-          left: { style: "thin", color: { rgb: "000000" } },
-          right: { style: "thin", color: { rgb: "000000" } },
-        },
-      };
-    }
-  });
-}
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Datos");
@@ -112,6 +131,11 @@ for (let row = dataStartRow; row <= dataEndRow; row++) {
 };
 
 export default BotonExcel;
+
+
+
+
+
 
 
 
