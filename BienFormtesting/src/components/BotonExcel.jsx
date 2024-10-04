@@ -35,29 +35,23 @@ const BotonExcel = ({ dataCSV }) => {
 
     // Ajustar el ancho de columnas
     ws["!cols"] = [
-      { wch: 20 },  // Columna A
-      { wch: 20 },  // Columna B
-      { wch: 20 },  // Columna C
+      { wch: 20 }, // Columna A
+      { wch: 20 }, // Columna B
+      { wch: 20 }, // Columna C
       { wch: 27.86 }, // Columna D
       { wch: 34.86 }, // Columna E
-      { wch: 20 },  // Columna F
-      { wch: 20 },  // Columna G
-      { wch: 20 },  // Columna H
-      { wch: 20 },  // Columna I
-      { wch: 27.86 },  // Columna J
-      { wch: 20 },  // Columna K
-      { wch: 20 },  // Columna L
+      { wch: 20 }, // Columna F
+      { wch: 20 }, // Columna G
+      { wch: 20 }, // Columna H
+      { wch: 20 }, // Columna I
+      { wch: 27.86 }, // Columna J
+      { wch: 20 }, // Columna K
+      { wch: 20 }, // Columna L
     ];
 
     const titleStyle = {
       font: { name: "Arial Rounded MT Bold", bold: true, sz: 14 },
       alignment: { horizontal: "left", vertical: "center" },
-    };
-
-    const subtitleStyle = {
-      font: { name: "Arial Rounded MT Bold", bold: true, sz: 12, color: { rgb: "000000" } },
-      alignment: { horizontal: "center", vertical: "center" },
-      // Sin color de fondo
     };
 
     const headerStyleLeftAligned = {
@@ -74,19 +68,30 @@ const BotonExcel = ({ dataCSV }) => {
 
     // Estilo para celdas A2 y A3 sin fondo
     const noFillStyle = {
-      font: { name: "Arial Rounded MT Bold", bold: true, sz: 12, color: { rgb: "000000" } },
+      font: {
+        name: "Arial Rounded MT Bold",
+        bold: true,
+        sz: 12,
+        color: { rgb: "000000" },
+      },
       alignment: { horizontal: "left", vertical: "center" },
     };
 
-    ws["A1"] = { v: "PONTIFICIA UNIVERSIDAD CATÓLICA DEL ECUADOR", s: titleStyle };
-    ws["A2"] = { v: "COORDINACIÓN DE INFORMACIÓN Y ESTADÍSTICAS", s: noFillStyle };
+    ws["A1"] = {
+      v: "PONTIFICIA UNIVERSIDAD CATÓLICA DEL ECUADOR",
+      s: titleStyle,
+    };
+    ws["A2"] = {
+      v: "COORDINACIÓN DE INFORMACIÓN Y ESTADÍSTICAS",
+      s: noFillStyle,
+    };
     ws["A3"] = { v: "INTERNACIONALIZACIÓN", s: noFillStyle };
 
     headers.forEach((header, index) => {
       const cellAddress = { c: index, r: 5 };
       const cellRef = XLSX.utils.encode_cell(cellAddress);
 
-      ws[cellRef] = { 
+      ws[cellRef] = {
         v: header.label,
         s: {
           ...headerStyleLeftAligned,
@@ -96,7 +101,8 @@ const BotonExcel = ({ dataCSV }) => {
     });
 
     // Aplicar bordes a las celdas de A6 a L6
-    for (let colIndex = 0; colIndex < 12; colIndex++) { // De A (0) a L (11)
+    for (let colIndex = 0; colIndex < 12; colIndex++) {
+      // De A (0) a L (11)
       const cellAddress = { c: colIndex, r: 5 }; // Fila 6 (índice 5)
       const cellRef = XLSX.utils.encode_cell(cellAddress);
       if (ws[cellRef]) {
@@ -125,17 +131,11 @@ const BotonExcel = ({ dataCSV }) => {
 
   return (
     <div>
-      <button onClick={exportToExcel} className="btn btn-primary">Exportar a Excel</button>
+      <button onClick={exportToExcel} className="btn btn-primary">
+        Exportar a Excel
+      </button>
     </div>
   );
 };
 
 export default BotonExcel;
-
-
-
-
-
-
-
-

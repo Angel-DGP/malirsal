@@ -9,7 +9,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 export default function FormLogins({ onDataSubmit, dataList }) {
   const [participants, setParticipants] = useState([
     { type: "", lastName: "", firstName: "" },
-  ]); 
+  ]);
 
   const handleAddParticipant = () => {
     setParticipants([
@@ -30,8 +30,8 @@ export default function FormLogins({ onDataSubmit, dataList }) {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    const newDataList = [values]; 
-    onDataSubmit({ dataList: newDataList, participants }); 
+    const newDataList = [values];
+    onDataSubmit({ dataList: newDataList, participants });
     resetForm();
   };
 
@@ -239,6 +239,11 @@ export default function FormLogins({ onDataSubmit, dataList }) {
                             <option value="VOLUNTARIO">VOLUNTARIO</option>
                             <option value="INDEPENDIENTE">INDEPENDIENTE</option>
                           </select>
+                          {errors.tparticipante && (
+                            <div className="text-warning">
+                              {errors.tparticipante}
+                            </div>
+                          )}
                         </div>
                         <div className="col-lg-4">
                           <label
@@ -260,6 +265,11 @@ export default function FormLogins({ onDataSubmit, dataList }) {
                               )
                             }
                           />
+                          {errors.Aparticipante && (
+                            <div className="text-warning">
+                              {errors.Aparticipante}
+                            </div>
+                          )}
                         </div>
                         <div className="col-lg-4">
                           <label htmlFor="c_NombresMovi" className="form-label">
@@ -278,6 +288,11 @@ export default function FormLogins({ onDataSubmit, dataList }) {
                               )
                             }
                           />
+                          {errors.Nparticipante && (
+                            <div className="text-warning">
+                              {errors.Nparticipante}
+                            </div>
+                          )}
                         </div>
                         <div className="col">
                           <CButton
@@ -427,21 +442,21 @@ export default function FormLogins({ onDataSubmit, dataList }) {
         </Formik>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <PDFDownloadLink
-        document={
-          <MyDocument dataList={dataList} participants={participants} />
-        }
-        fileName="Mi_pdf.pdf"
-      >
-        {({ loading }) =>
-          loading ? (
-            <button className="btn btn-primary">Cargando...</button>
-          ) : (
-            <button className="btn btn-primary">Descargar</button>
-          )
-        }
-      </PDFDownloadLink>
-      <BotonExcel dataCSV={dataList} />
+        <PDFDownloadLink
+          document={
+            <MyDocument dataList={dataList} participants={participants} />
+          }
+          fileName="Mi_pdf.pdf"
+        >
+          {({ loading }) =>
+            loading ? (
+              <button className="btn btn-primary">Cargando...</button>
+            ) : (
+              <button className="btn btn-primary">Descargar</button>
+            )
+          }
+        </PDFDownloadLink>
+        <BotonExcel dataCSV={dataList} />
       </div>
     </div>
   );
