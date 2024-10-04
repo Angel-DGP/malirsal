@@ -14,6 +14,35 @@ const BotonExcel = ({ dataCSV }) => {
     { label: "FECHA FIN", key: "f_fin" },
     { label: "ÁREA DE CONOCIMIENTO", key: "a_conocimiento" },
     { label: "FINANCIAMIENTO", key: "financiamiento" },
+    { label: 'APORTE A FUNCIÓN SUSTANTIVA. DOCENCIA', key: 'aporte_docencia' },
+    { label: 'APORTE A FUNCIÓN SUSTANTIVA. INVESTIGACIÓN', key: 'aporte_investigacion' },
+    { label: 'APORTE A FUNCIÓN SUSTANTIVA. VINCULACIÓN', key: 'aporte_vinculacion' },
+    {
+      label: 'APORTE A FUNCIÓN SUSTANTIVA. DESARROLLO DOCENTE / ADMINISTRATIVO',
+      key: 'aporte_desarrollo_docente',
+    },
+    {
+      label: 'APORTE A FUNCIÓN SUSTANTIVA. INTERNACIONALIZACIÓN',
+      key: 'aporte_internacionalizacion',
+    },
+    { label: 'INDICADOR OPCIÓN 1 MOV. EST. ENTR.', key: 'indicador_op1_mov_est_entr' },
+    { label: 'INDICADOR OPCIÓN 2 MOV. EST. SALIEN.', key: 'indicador_op2_mov_est_salien' },
+    { label: 'INDICADOR OPCIÓN 3 GIRA ACAD. ENTR', key: 'indicador_op3_gira_acad_entr' },
+    { label: 'INDICADOR OPCIÓN 4 GIRA ACAD. SALIEN', key: 'indicador_op4_gira_acad_salien' },
+    { label: 'INDICADOR OPCIÓN 5 MOV. DOC. ENTR.', key: 'indicador_op5_mov_doc_entr' },
+    { label: 'INDICADOR OPCIÓN 6 MOV. DOC. SALIE.', key: 'indicador_op6_mov_doc_salie' },
+    { label: 'INDICADOR OPCIÓN 7 MOV. ADM. SALIE.', key: 'indicador_op7_mov_adm_salie' },
+    { label: 'INDICADOR OPCIÓN 8 CONVENIO EFECT.', key: 'indicador_op8_convenio_efect' },
+    { label: 'INDICADOR OPCIÓN 9 PROD. CIENTÍFIC.', key: 'indicador_op9_prod_cientific' },
+    {
+      label: 'INDICADOR OPCIÓN 10 INTERN. CURRÍCULO (COIL, IDV, TELECOLABORACIÓN)',
+      key: 'indicador_op10_intern_curriculo',
+    },
+    {
+      label: 'INDICADOR OPCIÓN 11 INTERN. EN CASA (INTERCULTURALIDAD EN EL CAMPUS)',
+      key: 'indicador_op11_intern_en_casa',
+    },
+    { label: 'EVIDENCIA', key: 'evidencia' },
   ];
 
   const transformDataForParticipants = (data) => data;
@@ -21,7 +50,6 @@ const BotonExcel = ({ dataCSV }) => {
   const exportToExcel = () => {
     const headers = generateHeaders();
     const transformedData = transformDataForParticipants(dataCSV);
-
     const ws = XLSX.utils.aoa_to_sheet([[]]);
 
     ws["!rows"] = [
@@ -32,21 +60,35 @@ const BotonExcel = ({ dataCSV }) => {
       { hpt: 20 },
       { hpt: 72 },
     ];
-
-    // Ajustar el ancho de columnas
     ws["!cols"] = [
-      { wch: 20 }, // Columna A
-      { wch: 20 }, // Columna B
-      { wch: 20 }, // Columna C
-      { wch: 27.86 }, // Columna D
-      { wch: 34.86 }, // Columna E
-      { wch: 20 }, // Columna F
-      { wch: 20 }, // Columna G
-      { wch: 20 }, // Columna H
-      { wch: 20 }, // Columna I
-      { wch: 27.86 }, // Columna J
-      { wch: 20 }, // Columna K
-      { wch: 20 }, // Columna L
+      { wch: 20 }, 
+      { wch: 20 }, 
+      { wch: 20 }, 
+      { wch: 27.86 }, 
+      { wch: 34.86 }, 
+      { wch: 20 }, 
+      { wch: 20 }, 
+      { wch: 20 }, 
+      { wch: 20 }, 
+      { wch: 27.86 }, 
+      { wch: 20 }, 
+      { wch: 20 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 },
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 34.86 }, 
+      { wch: 54.86 },
+      { wch: 54.86 }, 
     ];
 
     const titleStyle = {
@@ -65,8 +107,6 @@ const BotonExcel = ({ dataCSV }) => {
         right: { style: "thin", color: { rgb: "000000" } },
       },
     };
-
-    // Estilo para celdas A2 y A3 sin fondo
     const noFillStyle = {
       font: {
         name: "Arial Rounded MT Bold",
@@ -99,21 +139,27 @@ const BotonExcel = ({ dataCSV }) => {
         },
       };
     });
+    const colors = [
+      { start: 11, end: 15, color: "9BC2E6" }, 
+      { start: 16, end: 26, color: "FFE699" }, 
+      { start: 27, end: 27, color: "ACB9CA" }, 
+    ];
 
-    // Aplicar bordes a las celdas de A6 a L6
-    for (let colIndex = 0; colIndex < 12; colIndex++) {
-      // De A (0) a L (11)
-      const cellAddress = { c: colIndex, r: 5 }; // Fila 6 (índice 5)
-      const cellRef = XLSX.utils.encode_cell(cellAddress);
-      if (ws[cellRef]) {
-        ws[cellRef].s.border = {
-          top: { style: "thin", color: { rgb: "000000" } },
-          bottom: { style: "thin", color: { rgb: "000000" } },
-          left: { style: "thin", color: { rgb: "000000" } },
-          right: { style: "thin", color: { rgb: "000000" } },
-        };
+    colors.forEach(({ start, end, color }) => {
+      for (let colIndex = start; colIndex <= end; colIndex++) {
+        const cellAddress = { c: colIndex, r: 5 }; 
+        const cellRef = XLSX.utils.encode_cell(cellAddress);
+        if (ws[cellRef]) {
+          ws[cellRef].s.fill = { fgColor: { rgb: color } };
+          ws[cellRef].s.border = {
+            top: { style: "thin", color: { rgb: "000000" } },
+            bottom: { style: "thin", color: { rgb: "000000" } },
+            left: { style: "thin", color: { rgb: "000000" } },
+            right: { style: "thin", color: { rgb: "000000" } },
+          };
+        }
       }
-    }
+    });
 
     const dataStartRow = 6 + 1;
 
