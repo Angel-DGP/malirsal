@@ -10,15 +10,19 @@ import {
   CRow,
 } from "@coreui/react";
 import FormLogins from "./FormLogins";
-import MyDocument from "./MyDocument";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Pa() {
   const [visible, setVisible] = useState(false);
   const [dataList, setDataList] = useState([]);
+  const [setParticipants] = useState([]);
 
-  const handleDataSubmit = (data) => {
-    setDataList([...dataList, data]);
+  const handleDataSubmit = ({
+    dataList: newDataList,
+    participants: newParticipants,
+  }) => {
+    setDataList([...newDataList]);
+    setParticipants([...newParticipants]);
   };
 
   return (
@@ -28,19 +32,28 @@ export default function Pa() {
           <h1>INTERNACIONALIZACIÓN</h1>
         </CRow>
         <CRow className="mt-2 mb-2">
-          <CCol className="mt-2 mb-2">
+          <CCol>
             <h3>Usuario Actual</h3>
           </CCol>
+        </CRow>
+        <CRow className="mt-2 mb-2">
           <CCol>
-            <input disabled value={"Formativa.ti@pucese.edu.ec"}></input>
+            <input
+              disabled
+              value={"Formativa.ti@pucese.edu.ec"}
+              style={{ width: "25%" }}
+            />
           </CCol>
+        </CRow>
+        <CRow className="mt-2 mb-2">
           <CCol>
-            <CButton color="primary" onClick={() => setVisible(!visible)}>
+            <CButton style={{color:"white", backgroundColor:"#48a259"}} onClick={() => setVisible(!visible)}>
               +
             </CButton>
           </CCol>
         </CRow>
       </CContainer>
+
       <CModal
         scrollable
         size="xl"
@@ -55,18 +68,6 @@ export default function Pa() {
         </CModalHeader>
         <CModalBody>
           <FormLogins onDataSubmit={handleDataSubmit} dataList={dataList} />
-          <PDFDownloadLink
-            document={<MyDocument dataList={dataList} />}
-            fileName="Mi_pdf.pdf"
-          >
-            {({ loading }) =>
-              loading ? (
-                <button>Cargando...</button>
-              ) : (
-                <button>Descargar</button>
-              )
-            }
-          </PDFDownloadLink>
         </CModalBody>
       </CModal>
     </>

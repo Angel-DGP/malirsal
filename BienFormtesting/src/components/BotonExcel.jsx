@@ -106,7 +106,7 @@ for (let row = dataStartRow; row <= dataEndRow; row++) {
 
   return (
     <div>
-      <button onClick={exportToExcel}>Exportar a Excel</button>
+      <button onClick={exportToExcel} className="btn btn-primary">Exportar a Excel</button>
     </div>
   );
 };
