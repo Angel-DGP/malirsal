@@ -57,7 +57,7 @@ export default function FormLogins({ onDataSubmit, dataList }) {
             if (!valores.sede) {
               errores.sede = "Escriba el nombre de la SEDE";
             }
-            if (!valores.c_carrera) {
+             if (!valores.c_carrera) {
               errores.c_carrera = "Escriba el Código de la Carrera";
             }
             if (!valores.c_convenio) {
@@ -86,7 +86,7 @@ export default function FormLogins({ onDataSubmit, dataList }) {
             }
             if (!valores.financiamiento) {
               errores.financiamiento = "Escriba el nombre del Financiamiento";
-            }
+            } 
             return errores;
           }}
           onSubmit={handleSubmit}
