@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   table: {
     display: "table",
     width: "auto",
-    marginVertical: "3px",
+    marginBottom: "3px",
   },
   tableRow: {
     flexDirection: "row",
@@ -49,11 +49,10 @@ const styles = StyleSheet.create({
     fontSize: "11px",
     fontWeight: "bold",
   },
-  //Ultima tabla
   tableEnd: {
     display: "table",
     width: "auto",
-    marginVertical: "3px",
+    marginVertical: "15px",
   },
   tableRowEnd: {
     flexDirection: "row",
@@ -69,21 +68,35 @@ const styles = StyleSheet.create({
   subtitleEnd: {
     fontSize: "8px",
     fontWeight: "bold",
+    paddingVertical: "30px",
   },
   contentEnd: {
     fontSize: "8px",
   },
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+  },
 });
 
-const MyDocument = ({ dataList }) => (
+const currentDate = new Date().toLocaleDateString();
+
+const MyDocument = ({ dataList, participants }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View>
         <Text style={styles.title}>INFORME DE MOVILIDAD INTERNACIONAL</Text>
         <Text style={styles.headtext}>DATOS GENERALES</Text>
-        <Text style={styles.details}>FECHA: </Text>
-        <Text style={styles.details}>PERIODO ACADEMICO:</Text>
+
+        <View style={styles.container}>
+          <Text style={styles.details}>FECHA: {currentDate}</Text>
+          <Text style={styles.details}>PERIODO ACADEMICO:</Text>
+        </View>
+
         <br />
+
         <View style={styles.table}>
           {dataList.map((data, index) => (
             <React.Fragment key={index}>
@@ -175,11 +188,56 @@ const MyDocument = ({ dataList }) => (
           ))}
         </View>
         <br />
+
+        <Text style={styles.headtext}>DATOS DEL MOVILIZADO Y ACTIVIDADES</Text>
+
+        {participants.map((participant, index) => (
+          <React.Fragment key={index}>
+            <View style={styles.tableRow}>
+              <Text
+                style={[
+                  styles.tableCell,
+                  styles.subtitle,
+                  styles.subt_content_green,
+                ]}
+              >
+                TIPO DEL MOVILIZADO PARTICIPANTE / EJECUTOR{" "}
+              </Text>
+              <Text style={[styles.tableCell, styles.content]}>
+                {participant.type}
+              </Text>
+            </View>
+            <View style={styles.tableRow}>
+              <Text
+                style={[
+                  styles.tableCell,
+                  styles.subtitle,
+                  styles.subt_content_green,
+                ]}
+              >
+                APELLIDO(S) DEL MOVILIZADO / PARTICIPANTE / EJECUTOR
+              </Text>
+              <Text style={[styles.tableCell, styles.content]}>
+                {participant.lastName}
+              </Text>
+            </View>
+            <View style={styles.tableRow}>
+              <Text
+                style={[
+                  styles.tableCell,
+                  styles.subtitle,
+                  styles.subt_content_green,
+                ]}
+              >
+                NOMBRE(S) DEL MOVILIZADO / PARTICIPANTE / EJECUTOR
+              </Text>
+              <Text style={[styles.tableCell, styles.content]}>
+                {participant.firstName}
+              </Text>
+            </View>
+          </React.Fragment>
+        ))}
         <View style={styles.table}>
-          <Text style={styles.headtext}>
-            DATOS DEL MOVILIZADO Y ACTIVIDADES{" "}
-          </Text>
-          <br />
           {dataList.map((data, index) => (
             <React.Fragment key={index}>
               <View style={styles.tableRow}>
@@ -255,7 +313,6 @@ const MyDocument = ({ dataList }) => (
             </React.Fragment>
           ))}
         </View>
-
         <View style={styles.tableEnd}>
           <View style={styles.tableRowEnd}>
             <Text style={[styles.tableCellEnd, styles.subtitleEnd]}>
@@ -282,6 +339,8 @@ const MyDocument = ({ dataList }) => (
             </Text>
           </View>
         </View>
+
+        <View style={styles.table}></View>
       </View>
     </Page>
   </Document>
